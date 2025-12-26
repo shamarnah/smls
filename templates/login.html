@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLMS - Student Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h1>Smart Library Management System</h1>
+            <h2>Student Login</h2>
+            
+            {% if error %}
+            <div class="error-message">{{ error }}</div>
+            {% endif %}
+            
+            <form method="POST" action="/login">
+                <div class="form-group">
+                    <label for="user_id">Student ID:</label>
+                    <input type="text" id="user_id" name="user_id" 
+                           placeholder="asuXXXXXXstd" required>
+                    <small>Format: asuXXXXXXstd (e.g., asu123456std)</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" 
+                           placeholder="Same as Student ID" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            
+            <div class="admin-link">
+                <a href="/admin">Admin Login</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
