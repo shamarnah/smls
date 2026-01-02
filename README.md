@@ -4,7 +4,7 @@ A simple web-based library management system built with Python Flask for an Obje
 
 ## Features
 
-- **Student Login**: Students can log in using their student ID (format: `asuXXXXXXstd`) with password same as student ID
+- **Student Login**: Students can log in using their student ID (format: `XXXXXXXXXasu`) with password same as student ID
 - **Book Borrowing**: Students can browse available books and borrow them
 - **Book Returns**: Students can return borrowed books
 - **Admin Panel**: Admins can add new books to the library catalog
@@ -76,7 +76,7 @@ Open your web browser and navigate to:
 ### For Students
 
 1. Go to the login page
-2. Enter your student ID in the format: `asuXXXXXXstd` (e.g., `asu123456std`)
+2. Enter your student ID in the format: `XXXXXXXXXasu` (e.g., `123456789asu`)
 3. Enter the same student ID as the password
 4. Browse available books
 5. Click "Borrow Book" to borrow a book
@@ -121,7 +121,7 @@ The system uses **in-memory storage** (Python dictionaries) for simplicity. This
 ### Authentication
 
 - Students don't need to create accounts
-- Any valid student ID format (`asuXXXXXXstd`) will automatically create a student account
+- Any valid student ID format (`XXXXXXXXXasu`) will automatically create a student account
 - Password is the same as the student ID
 
 ### Session Management

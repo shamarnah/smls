@@ -8,6 +8,9 @@
 </head>
 <body>
     <div class="container">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='images/asu_logo.png') }}" alt="ASU Logo" class="logo">
+        </div>
         <header>
             <h1>Smart Library Management System</h1>
             <div class="user-info">
@@ -47,6 +50,18 @@
                     <input type="number" id="copies" name="copies" min="1" value="1" required>
                 </div>
                 
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="for_sale" name="for_sale" onchange="togglePriceField()">
+                        Available for Sale
+                    </label>
+                </div>
+                
+                <div class="form-group" id="priceGroup" style="display: none;">
+                    <label for="price">Price (JOD):</label>
+                    <input type="number" id="price" name="price" min="0" step="0.01" placeholder="0.00">
+                </div>
+                
                 <button type="submit" class="btn btn-primary">Add Book</button>
             </form>
             
@@ -60,9 +75,61 @@
                     <p><strong>ISBN:</strong> {{ book.isbn }}</p>
                     <p><strong>Available:</strong> {{ book.available_copies }} / {{ book.copies }}</p>
                     <p><strong>Book ID:</strong> {{ book.book_id }}</p>
+                    {% if book.for_sale %}
+                    <p><strong>For Sale:</strong> Yes - {{ "%.2f"|format(book.price) }} JOD</p>
+                    {% else %}
+                    <p><strong>For Sale:</strong> No (Borrow Only)</p>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>
+            
+            <h2>Sales & Payment Information</h2>
+            
+            {% if sales|length > 0 %}
+            <div class="sales-section">
+                <table class="sales-table">
+                    <thead>
+                        <tr>
+                            <th>Sale ID</th>
+                            <th>Student ID</th>
+                            <th>Faculty</th>
+                            <th>Book Title</th>
+                            <th>Price (JOD)</th>
+                            <th>Payment Method</th>
+                            <th>Scheduled Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sale in sales %}
+                        <tr>
+                            <td>{{ sale.sale_id }}</td>
+                            <td>{{ sale.student_id }}</td>
+                            <td>{{ sale.faculty }}</td>
+                            <td>{{ sale.book_title }}</td>
+                            <td>{{ "%.2f"|format(sale.price) }}</td>
+                            <td>
+                                {% if sale.payment_method == 'visa' %}
+                                <span class="badge badge-visa">Visa</span>
+                                {% else %}
+                                <span class="badge badge-cash">Cash</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if sale.scheduled_time %}
+                                {{ sale.scheduled_time }}
+                                {% else %}
+                                <span class="text-muted">N/A</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p class="no-sales">No sales recorded yet.</p>
+            {% endif %}
         </div>
     </div>
     
